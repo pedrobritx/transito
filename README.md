@@ -40,15 +40,15 @@ Transito is a powerful, native macOS application built with SwiftUI that allows 
 1. Clone the repository.
 2. Run the build script:
 
-```bash
-./scripts/build_swift_app.sh
-```
+      ```bash
+      ./scripts/build_swift_app.sh
+      ```
 
 3. To create a distributable DMG:
 
-```bash
-./scripts/create_dmg.sh
-```
+      ```bash
+      ./scripts/create_dmg.sh
+      ```
 
 ### Project Structure
 

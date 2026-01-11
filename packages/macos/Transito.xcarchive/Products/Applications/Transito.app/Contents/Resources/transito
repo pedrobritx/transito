@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Transito engine placeholder: no native engine bundled."
+exit 0

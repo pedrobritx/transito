@@ -1,0 +1,96 @@
+{
+  "source": "/Users/pedr/Developer/Transito/packages/macos/Transito/ContentView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Transito",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 15
+        }
+      },
+      {
+        "comment": "",
+        "key": "HLS Downloader",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 19
+        }
+      },
+      {
+        "comment": "",
+        "key": "URL:",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 26
+        }
+      },
+      {
+        "comment": "",
+        "key": "Paste M3U8 or Web Page URL",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 29
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save to:",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 42
+        }
+      },
+      {
+        "comment": "",
+        "key": "Output filename",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 46
+        }
+      },
+      {
+        "comment": "",
+        "key": "Choose...",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 49
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 58
+        }
+      },
+      {
+        "comment": "",
+        "key": "Scanning...",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "Download",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 66
+        }
+      },
+      {
+        "comment": "",
+        "key": "Show in Finder",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 100
+        }
+      }
+    ]
+  },
+  "version": 1
+}

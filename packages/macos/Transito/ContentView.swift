@@ -91,7 +91,7 @@ struct ContentView: View {
                         if !downloadManager.statusMessage.isEmpty {
                             Text(downloadManager.statusMessage)
                                 .font(.caption)
-                                .foregroundColor(downloadManager.isError ? .red : .green)
+                                .foregroundColor(downloadManager.errorMessage != nil ? .red : .green)
                                 .multilineTextAlignment(.center)
                                 .transition(.scale)
                         }

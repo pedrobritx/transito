@@ -1,0 +1,61 @@
+{
+  "" : {
+    "const-values" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/Transito-primary.swiftconstvalues",
+    "dependencies" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/Transito-primary.d",
+    "diagnostics" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/Transito-primary.dia",
+    "emit-module-dependencies" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/Transito-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/Transito-primary-emit-module.dia",
+    "pch" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/Transito-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/Transito-primary.swiftdeps"
+  },
+  "/Users/pedr/Developer/Transito/packages/macos/Transito/ContentView.swift" : {
+    "index-unit-output-path" : "/Transito.build/Release/Transito.build/Objects-normal/x86_64/ContentView.o",
+    "llvm-bc" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/ContentView.bc",
+    "object" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/ContentView.o"
+  },
+  "/Users/pedr/Developer/Transito/packages/macos/Transito/DownloadManager.swift" : {
+    "index-unit-output-path" : "/Transito.build/Release/Transito.build/Objects-normal/x86_64/DownloadManager.o",
+    "llvm-bc" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/DownloadManager.bc",
+    "object" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/DownloadManager.o"
+  },
+  "/Users/pedr/Developer/Transito/packages/macos/Transito/FFmpegInstaller.swift" : {
+    "index-unit-output-path" : "/Transito.build/Release/Transito.build/Objects-normal/x86_64/FFmpegInstaller.o",
+    "llvm-bc" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/FFmpegInstaller.bc",
+    "object" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/FFmpegInstaller.o"
+  },
+  "/Users/pedr/Developer/Transito/packages/macos/Transito/HLSEngine.swift" : {
+    "index-unit-output-path" : "/Transito.build/Release/Transito.build/Objects-normal/x86_64/HLSEngine.o",
+    "llvm-bc" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/HLSEngine.bc",
+    "object" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/HLSEngine.o"
+  },
+  "/Users/pedr/Developer/Transito/packages/macos/Transito/PreferencesView.swift" : {
+    "index-unit-output-path" : "/Transito.build/Release/Transito.build/Objects-normal/x86_64/PreferencesView.o",
+    "llvm-bc" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/PreferencesView.bc",
+    "object" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/PreferencesView.o"
+  },
+  "/Users/pedr/Developer/Transito/packages/macos/Transito/TransitoApp.swift" : {
+    "index-unit-output-path" : "/Transito.build/Release/Transito.build/Objects-normal/x86_64/TransitoApp.o",
+    "llvm-bc" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/TransitoApp.bc",
+    "object" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/TransitoApp.o"
+  },
+  "/Users/pedr/Developer/Transito/packages/macos/Transito/URLDiscoveryManager.swift" : {
+    "index-unit-output-path" : "/Transito.build/Release/Transito.build/Objects-normal/x86_64/URLDiscoveryManager.o",
+    "llvm-bc" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/URLDiscoveryManager.bc",
+    "object" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/URLDiscoveryManager.o"
+  },
+  "/Users/pedr/Developer/Transito/packages/macos/Transito/URLDiscoveryView.swift" : {
+    "index-unit-output-path" : "/Transito.build/Release/Transito.build/Objects-normal/x86_64/URLDiscoveryView.o",
+    "llvm-bc" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/URLDiscoveryView.bc",
+    "object" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/URLDiscoveryView.o"
+  },
+  "/Users/pedr/Developer/Transito/packages/macos/Transito/VisualEffectView.swift" : {
+    "index-unit-output-path" : "/Transito.build/Release/Transito.build/Objects-normal/x86_64/VisualEffectView.o",
+    "llvm-bc" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/VisualEffectView.bc",
+    "object" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/VisualEffectView.o"
+  },
+  "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "index-unit-output-path" : "/Transito.build/Release/Transito.build/Objects-normal/x86_64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/GeneratedAssetSymbols.o"
+  }
+}
