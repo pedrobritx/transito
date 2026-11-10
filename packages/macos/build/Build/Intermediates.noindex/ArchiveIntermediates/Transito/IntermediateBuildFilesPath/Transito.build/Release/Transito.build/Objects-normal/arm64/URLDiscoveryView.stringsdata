@@ -1,0 +1,40 @@
+{
+  "source": "/Users/pedr/Developer/Transito/packages/macos/Transito/URLDiscoveryView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Select Video Stream",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 12
+        }
+      },
+      {
+        "comment": "",
+        "key": "Found %lld potential video streams.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 15
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 41
+        }
+      },
+      {
+        "comment": "",
+        "key": "Download Selected",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 48
+        }
+      }
+    ]
+  },
+  "version": 1
+}

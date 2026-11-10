@@ -1,0 +1,12 @@
+{
+  "/Users/pedr/Developer/Transito/packages/macos/Transito/ContentView.swift" : {
+    "abi-baseline-json" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/Transito.abi.json",
+    "const-values" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/Transito-primary.swiftconstvalues",
+    "dependencies" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/Transito-primary.d",
+    "diagnostics" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/Transito-primary.dia",
+    "objc-header" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/Transito-Swift.h",
+    "swiftdoc" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/Transito.swiftdoc",
+    "swiftmodule" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/Transito.swiftmodule",
+    "swiftsourceinfo" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath/Transito.build/Release/Transito.build/Objects-normal/x86_64/Transito.swiftsourceinfo"
+  }
+}

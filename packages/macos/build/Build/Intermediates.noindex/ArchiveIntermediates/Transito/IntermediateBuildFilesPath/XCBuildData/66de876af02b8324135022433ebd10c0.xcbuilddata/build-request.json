@@ -1,0 +1,83 @@
+{
+  "buildCommand" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildAndRun"
+  },
+  "configuredTargets" : [
+    {
+      "guid" : "e9eaf9138db150e29e37b0feef9b2da6d90f4e3e863d88a98f3c0c123e62830c"
+    }
+  ],
+  "containerPath" : "/Users/pedr/Developer/Transito/packages/macos/Transito.xcodeproj",
+  "continueBuildingAfterErrors" : false,
+  "dependencyScope" : "workspace",
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "install",
+    "activeArchitecture" : "undefined_arch",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : true,
+      "platform" : "macosx",
+      "sdk" : "macosx26.2",
+      "sdkVariant" : "macos",
+      "supportedArchitectures" : [
+        "arm64",
+        "arm64e",
+        "x86_64",
+        "x86_64h"
+      ],
+      "targetArchitecture" : "undefined_arch"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Products",
+      "derivedDataPath" : "/Users/pedr/Developer/Transito/packages/macos/build",
+      "indexDataStoreFolderPath" : "/Users/pedr/Developer/Transito/packages/macos/build/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/pedr/Developer/Transito/packages/macos/build/Index.noindex/PrecompiledHeaders",
+      "pchPath" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Release",
+    "overrides" : {
+      "commandLine" : {
+        "table" : {
+
+        }
+      },
+      "synthesized" : {
+        "table" : {
+          "ACTION" : "install",
+          "ASSET_PACK_FOLDER_PATH" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/InstallationBuildProductsLocation/OnDemandResources",
+          "ASSETCATALOG_COMPILER_FLATTENED_APP_ICON_PATH" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/BuildProductsPath/ProductIcon.png",
+          "COLOR_DIAGNOSTICS" : "YES",
+          "DEPLOYMENT_LOCATION" : "YES",
+          "DEPLOYMENT_POSTPROCESSING" : "YES",
+          "diagnostic_message_length" : "133",
+          "DSTROOT" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/InstallationBuildProductsLocation",
+          "EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE" : "NO",
+          "ENABLE_PREVIEWS" : "NO",
+          "ENABLE_SIGNATURE_AGGREGATION" : "YES",
+          "ENABLE_XOJIT_PREVIEWS" : "YES",
+          "INDEX_ENABLE_DATA_STORE" : "NO",
+          "MESSAGES_APPLICATION_EXTENSION_SUPPORT_FOLDER_PATH" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/BuildProductsPath/MessagesApplicationExtensionSupport",
+          "MESSAGES_APPLICATION_SUPPORT_FOLDER_PATH" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/BuildProductsPath/MessagesApplicationSupport",
+          "OBJROOT" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/IntermediateBuildFilesPath",
+          "ONLY_ACTIVE_ARCH" : "YES",
+          "SHARED_PRECOMPS_DIR" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/PrecompiledHeaders",
+          "SIGNATURE_METADATA_FOLDER_PATH" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/BuildProductsPath/Signatures",
+          "SWIFT_STDLIB_TOOL_UNSIGNED_DESTINATION_DIR" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/BuildProductsPath/SwiftSupport",
+          "SYMROOT" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/BuildProductsPath",
+          "WATCHKIT_2_SUPPORT_FOLDER_PATH" : "/Users/pedr/Developer/Transito/packages/macos/build/Build/Intermediates.noindex/ArchiveIntermediates/Transito/BuildProductsPath/WatchKitSupport2"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "archive",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}

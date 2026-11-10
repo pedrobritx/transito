@@ -1,300 +1,215 @@
 import SwiftUI
 import UniformTypeIdentifiers
-import AppKit
 
 struct ContentView: View {
     @StateObject private var downloadManager = DownloadManager()
-    @AppStorage("defaultFolder") private var defaultFolderPath: String = ""
-    @AppStorage("autoOpenOnComplete") private var autoOpen: Bool = false
-
-    @State private var urlText = ""
-    @State private var outputFolder: URL?
-    @State private var extractSubtitles = false
-    @State private var showAdvanced = false
-    @State private var userAgent: String = ""
-    @State private var referer: String = ""
+    @StateObject private var discoveryManager = URLDiscoveryManager()
+    
+    @State private var url: String = ""
     @State private var isDragging = false
-
+    @State private var outputPath: String = ""
+    @State private var showDiscoverySheet = false
+    
     var body: some View {
-        ZStack {
-            // Liquid glass background with vibrancy
-            VisualEffectView(material: .hudWindow, blending: .behindWindow)
-                .ignoresSafeArea()
-
-            // Subtle gradient overlay for light reflection
-            AngularGradient(
-                gradient: Gradient(colors: [
-                    Color.white.opacity(0.15),
-                    Color.blue.opacity(0.08),
-                    Color.purple.opacity(0.08),
-                    Color.white.opacity(0.15)
-                ]),
-                center: .center
-            )
-            .blur(radius: 50)
-            .ignoresSafeArea()
-
-            // Main content
-            ScrollView {
-                VStack(spacing: 20) {
-                    // Header
-                    VStack(spacing: 6) {
-                        Text("Transito")
-                            .font(.system(size: 32, weight: .semibold, design: .rounded))
-                            .foregroundStyle(.primary)
-                            .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
-
-                        Text("Paste an HLS URL (.m3u8) to download")
-                            .font(.callout)
-                            .foregroundStyle(.secondary)
-                    }
-                    .padding(.top, 16)
-
-                    // Main controls card
-                    VStack(spacing: 14) {
-                        // URL Input
-                        VStack(alignment: .leading, spacing: 6) {
-                            Label("M3U8 URL", systemImage: "link.circle")
-                                .font(.subheadline.bold())
-                                .foregroundStyle(.secondary)
-
-                            HStack(spacing: 8) {
-                                TextField("https://example.com/video.m3u8", text: $urlText)
-                                    .textFieldStyle(.plain)
-                                    .padding(10)
-                                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
-                                    .onDrop(of: [.url, .text], isTargeted: $isDragging) { providers in
-                                        handleDrop(providers: providers)
-                                    }
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                            .stroke(isDragging ? Color.accentColor.opacity(0.5) : Color.white.opacity(0.1), lineWidth: 1)
-                                    )
-                                    .disabled(downloadManager.isDownloading)
-
-                                // Paste button
-                                Button {
-                                    if let pasteboardString = NSPasteboard.general.string(forType: .string) {
-                                        urlText = pasteboardString
-                                    }
-                                } label: {
-                                    Image(systemName: "doc.on.clipboard")
-                                }
-                                .help("Paste from clipboard")
-
-                                // Clear button
-                                if !urlText.isEmpty {
-                                    Button {
-                                        urlText = ""
-                                    } label: {
-                                        Image(systemName: "xmark.circle.fill")
-                                    }
-                                    .help("Clear URL")
-                                }
-                            }
+        VStack(spacing: 20) {
+            Text("Transito")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+            
+            Text("HLS Downloader")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+            
+            VStack(spacing: 15) {
+                // URL input with drag-drop support
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("URL:")
+                        .font(.headline)
+                    
+                    TextField("Paste M3U8 or Web Page URL", text: $url)
+                        .textFieldStyle(.roundedBorder)
+                        .onDrop(of: [.url, .text], isTargeted: $isDragging) { providers in
+                            handleDrop(providers: providers)
                         }
-
-                        // Output Folder Selector
-                        VStack(alignment: .leading, spacing: 6) {
-                            Label("Save to", systemImage: "folder.circle")
-                                .font(.subheadline.bold())
-                                .foregroundStyle(.secondary)
-
-                            HStack(spacing: 8) {
-                                Button(action: chooseOutputFolder) {
-                                    HStack(spacing: 6) {
-                                        Image(systemName: "folder")
-                                        Text(outputFolder?.lastPathComponent ?? "Select folder")
-                                            .lineLimit(1)
-                                    }
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                }
-                                .buttonStyle(.bordered)
-                                .disabled(downloadManager.isDownloading)
-                            }
-                        }
-
-                        // Subtitles & Advanced Options
-                        VStack(spacing: 10) {
-                            Toggle("Extract subtitles (.vtt file)", isOn: $extractSubtitles)
-                                .help("Save subtitles separately as .vtt (not muxed into MP4)")
-                                .disabled(downloadManager.isDownloading)
-
-                            DisclosureGroup("Advanced options", isExpanded: $showAdvanced) {
-                                VStack(spacing: 10) {
-                                    TextField("User-Agent (optional)", text: $userAgent)
-                                        .textFieldStyle(.roundedBorder)
-                                        .disabled(downloadManager.isDownloading)
-
-                                    TextField("Referer header (optional)", text: $referer)
-                                        .textFieldStyle(.roundedBorder)
-                                        .disabled(downloadManager.isDownloading)
-                                }
-                                .padding(.top, 8)
-                            }
-                        }
-
-                        Divider()
-                            .opacity(0.3)
-
-                        // Progress
-                        if downloadManager.isDownloading {
-                            VStack(spacing: 10) {
-                                ProgressView(value: downloadManager.progress)
-                                    .tint(.accentColor)
-
-                                HStack {
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text(downloadManager.statusMessage)
-                                            .font(.caption)
-                                            .foregroundStyle(.secondary)
-
-                                        if downloadManager.progress > 0 {
-                                            Text("\(Int(downloadManager.progress * 100))%")
-                                                .font(.caption2)
-                                                .foregroundStyle(.tertiary)
-                                        }
-                                    }
-
-                                    Spacer()
-
-                                    Button("Stop", role: .destructive) {
-                                        downloadManager.cancelDownload()
-                                    }
-                                    .buttonStyle(.bordered)
-                                }
-                            }
-                        }
-
-                        // Error Display
-                        if let error = downloadManager.errorMessage, !error.isEmpty {
-                            VStack(alignment: .leading, spacing: 8) {
-                                HStack {
-                                    Image(systemName: "exclamationmark.circle.fill")
-                                        .foregroundStyle(.red)
-                                    Text("Error")
-                                        .font(.caption.bold())
-                                    Spacer()
-                                    Button {
-                                        NSPasteboard.general.clearContents()
-                                        NSPasteboard.general.setString(error, forType: .string)
-                                    } label: {
-                                        Image(systemName: "doc.on.doc")
-                                    }
-                                    .help("Copy error to clipboard")
-                                }
-
-                                Text(error)
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                                    .textSelection(.enabled)
-                            }
-                            .padding(10)
-                            .background(Color.red.opacity(0.08), in: RoundedRectangle(cornerRadius: 8))
-                        }
-
-                        // Status Message (Success)
-                        if !downloadManager.statusMessage.isEmpty && !downloadManager.isDownloading && downloadManager.errorMessage == nil {
-                            HStack {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundStyle(.green)
-                                Text(downloadManager.statusMessage)
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                            }
-                            .padding(10)
-                            .background(Color.green.opacity(0.08), in: RoundedRectangle(cornerRadius: 8))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(isDragging ? Color.blue : Color.clear, lineWidth: 2)
+                        )
+                }
+                
+                // Output path
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Save to:")
+                        .font(.headline)
+                    
+                    HStack {
+                        TextField("Output filename", text: $outputPath)
+                            .textFieldStyle(.roundedBorder)
+                        
+                        Button("Choose...") {
+                            selectOutputPath()
                         }
                     }
-                    .padding(18)
-                    .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 18, style: .continuous)
-                            .stroke(Color.white.opacity(0.12), lineWidth: 1)
-                            .blendMode(.overlay)
-                    )
-                    .shadow(color: .black.opacity(0.2), radius: 24, x: 0, y: 16)
-                    .padding(.horizontal, 20)
-
-                    // Download Button
-                    Button(action: startDownload) {
-                        HStack(spacing: 8) {
-                            if downloadManager.isDownloading {
-                                ProgressView()
-                                    .scaleEffect(0.8)
-                            }
-                            Text(downloadManager.isDownloading ? "Downloading…" : "Download")
-                                .fontWeight(.semibold)
+                }
+                
+                // Action buttons
+                HStack(spacing: 10) {
+                    if downloadManager.isDownloading {
+                        Button("Cancel") {
+                            downloadManager.cancelDownload()
                         }
-                        .frame(maxWidth: .infinity)
+                        .buttonStyle(.bordered)
+                    } else if discoveryManager.isScanning {
+                        ProgressView("Scanning...")
+                            .scaleEffect(0.8)
+                    } else {
+                        Button("Download") {
+                            startProcessing()
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .disabled(url.isEmpty || outputPath.isEmpty)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .controlSize(.large)
-                    .keyboardShortcut(.defaultAction)
-                    .disabled(urlText.isEmpty || outputFolder == nil || downloadManager.isDownloading)
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 20)
+                }
+                .frame(maxWidth: .infinity)
+                
+                // Progress view
+                if downloadManager.isDownloading {
+                    VStack(spacing: 10) {
+                        ProgressView(value: downloadManager.progress)
+                            .transition(.opacity)
+                        Text(downloadManager.statusMessage)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .transition(.opacity)
+                    }
+                    .animation(.easeInOut, value: downloadManager.isDownloading)
+                }
+                
+                // Status message & Show in Finder
+                if !downloadManager.isDownloading {
+                    VStack(spacing: 10) {
+                        if !downloadManager.statusMessage.isEmpty {
+                            Text(downloadManager.statusMessage)
+                                .font(.caption)
+                                .foregroundColor(downloadManager.errorMessage != nil ? .red : .green)
+                                .multilineTextAlignment(.center)
+                                .transition(.scale)
+                        }
+                        
+                        if let fileURL = downloadManager.lastDownloadedURL {
+                            Button("Show in Finder") {
+                                NSWorkspace.shared.activateFileViewerSelecting([fileURL])
+                            }
+                            .buttonStyle(.link)
+                            .transition(.opacity)
+                        }
+                    }
+                    .animation(.spring(), value: downloadManager.lastDownloadedURL)
                 }
             }
+            .padding()
+            .background(Color(NSColor.controlBackgroundColor))
+            .cornerRadius(12)
+        }
+        .padding()
+        .frame(width: 600, height: 500)
+        .sheet(isPresented: $showDiscoverySheet) {
+            URLDiscoveryView(
+                urls: discoveryManager.foundURLs,
+                onSelect: { selectedURL in
+                    showDiscoverySheet = false
+                    self.url = selectedURL
+                    // Auto start download after selection
+                    Task {
+                        await downloadManager.download(url: selectedURL, outputPath: outputPath)
+                    }
+                },
+                onCancel: {
+                    showDiscoverySheet = false
+                }
+            )
         }
         .onAppear {
+            // Request notification permissions
             downloadManager.requestNotificationPermission()
-            if let path = defaultFolderPath, !path.isEmpty {
-                outputFolder = URL(fileURLWithPath: path)
+            
+            // Set default output path if empty
+            if outputPath.isEmpty {
+                let downloads = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
+                outputPath = downloads.appendingPathComponent("video.mp4").path
             }
-            userAgent = UserDefaults.standard.string(forKey: "defaultUA") ?? ""
-            referer = UserDefaults.standard.string(forKey: "defaultRef") ?? ""
         }
     }
-
-    private func chooseOutputFolder() {
-        let panel = NSOpenPanel()
-        panel.allowsMultipleSelection = false
-        panel.canChooseDirectories = true
-        panel.canChooseFiles = false
-        panel.message = "Select download folder"
-
-        if panel.runModal() == .OK {
-            outputFolder = panel.url
+    
+    private func startProcessing() {
+        guard !url.isEmpty else { return }
+        
+        // If it's already an m3u8, download directly
+        if url.lowercased().contains(".m3u8") {
+            Task {
+                await downloadManager.download(url: url, outputPath: outputPath)
+            }
+            return
+        }
+        
+        // Otherwise, try to discover
+        Task {
+            do {
+                let urls = try await discoveryManager.findM3U8Links(in: url)
+                if urls.isEmpty {
+                    downloadManager.errorMessage = "No video streams found"
+                    downloadManager.statusMessage = "No video streams found"
+                } else if urls.count == 1 {
+                    // Found exactly one, just download it
+                    self.url = urls[0]
+                    await downloadManager.download(url: urls[0], outputPath: outputPath)
+                } else {
+                    // Found multiple, show selection
+                    showDiscoverySheet = true
+                }
+            } catch {
+                downloadManager.errorMessage = error.localizedDescription
+                downloadManager.statusMessage = "Scanning failed: \(error.localizedDescription)"
+            }
         }
     }
-
+    
     private func handleDrop(providers: [NSItemProvider]) -> Bool {
         guard let provider = providers.first else { return false }
-
+        
         if provider.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
-            provider.loadItem(forTypeIdentifier: UTType.url.identifier, options: nil) { item, _ in
+            provider.loadItem(forTypeIdentifier: UTType.url.identifier, options: nil) { item, error in
                 if let url = item as? URL {
                     DispatchQueue.main.async {
-                        urlText = url.absoluteString
+                        self.url = url.absoluteString
                     }
                 }
             }
             return true
         } else if provider.hasItemConformingToTypeIdentifier(UTType.text.identifier) {
-            provider.loadItem(forTypeIdentifier: UTType.text.identifier, options: nil) { item, _ in
+            provider.loadItem(forTypeIdentifier: UTType.text.identifier, options: nil) { item, error in
                 if let text = item as? String {
                     DispatchQueue.main.async {
-                        urlText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+                        self.url = text.trimmingCharacters(in: .whitespacesAndNewlines)
                     }
                 }
             }
             return true
         }
-
+        
         return false
     }
-
-    private func startDownload() {
-        Task {
-            await downloadManager.download(
-                url: urlText,
-                outputPath: outputFolder?.path ?? "",
-                extractSubtitles: extractSubtitles,
-                userAgent: userAgent.isEmpty ? nil : userAgent,
-                referer: referer.isEmpty ? nil : referer,
-                autoOpen: autoOpen
-            )
+    
+    private func selectOutputPath() {
+        let panel = NSSavePanel()
+        panel.title = "Save Video"
+        panel.nameFieldStringValue = "video.mp4"
+        panel.allowedContentTypes = [UTType.mpeg4Movie, UTType.movie]
+        
+        if panel.runModal() == .OK {
+            if let url = panel.url {
+                outputPath = url.path
+            }
         }
     }
 }
