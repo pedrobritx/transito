@@ -22,13 +22,6 @@ struct PreferencesView: View {
             
             Section(header: Text("About")) {
                 HStack {
-                    Text("Version:")
-                    Spacer()
-                    Text("0.4.0")
-                        .foregroundColor(.secondary)
-                }
-                
-                HStack {
                     Text("ffmpeg:")
                     Spacer()
                     Text(checkFFmpegInstalled() ? "Installed" : "Not Installed")
