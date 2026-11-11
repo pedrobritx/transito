@@ -50,7 +50,7 @@ jobs:
           from pathlib import Path
           from urllib.parse import urlsplit, unquote
           root = Path.cwd()
-          pages = [root / "index.html"] + sorted(p for p in root.glob("**/index.html") if not any(x in p.parts for x in (".git", "packages", "tests", ".idea")))
+          pages = sorted(p for p in root.glob("**/index.html") if not any(x in p.parts for x in (".git", "packages", "tests", ".idea")))
           assert len(pages) == 14, f"Expected 14 localized pages, got {len(pages)}"
           class Checker(HTMLParser):
               def __init__(self):

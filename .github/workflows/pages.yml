@@ -1,0 +1,81 @@
+name: Deploy Transito Website
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'assets/landing/**'
+      - 'features/**'
+      - 'guide/**'
+      - 'support/**'
+      - 'updates/**'
+      - 'privacy/**'
+      - 'contribute/**'
+      - 'pt/**'
+      - 'CNAME'
+      - '.nojekyll'
+      - 'robots.txt'
+      - 'sitemap.xml'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: transito-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Publish isolated static website
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare website-only publish directory
+        run: |
+          set -euo pipefail
+          mkdir -p _site/assets
+          cp index.html CNAME .nojekyll robots.txt sitemap.xml _site/
+          cp -R assets/landing _site/assets/
+          cp -R features guide support updates privacy contribute pt _site/
+          test -f _site/index.html
+          test -f _site/pt/index.html
+          test -f _site/assets/landing/site.css
+          echo "Publishing the website only; never app archives or Xcode build symlinks."
+
+      - name: Set Pages workflow source and domain
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh api --method PUT "repos/${{ github.repository }}/pages" -f build_type=workflow; then
+            echo "GitHub Pages source set to GitHub Actions."
+          else
+            echo "::warning::Couldn't change the GitHub Pages publishing source automatically. In Settings → Pages, choose GitHub Actions."
+          fi
+          if gh api --method PUT "repos/${{ github.repository }}/pages" -f cname=transito.britx.studio; then
+            echo "Custom domain set to transito.britx.studio."
+          else
+            echo "::warning::Set custom domain transito.britx.studio in Settings → Pages after configuring DNS."
+          fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

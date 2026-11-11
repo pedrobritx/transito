@@ -1,18 +1,18 @@
 # Transito website
 
-The product site is a dependency-free, bilingual static website hosted using the repository's existing **GitHub Pages (main / root)** configuration.
+The product site is a dependency-free, bilingual static website deployed by **.github/workflows/pages.yml**. The workflow stages only the website files in `_site`, excluding Xcode archives and broken symlinks.
 
 - English pages: `/`, `/features/`, `/guide/`, `/support/`, `/updates/`, `/privacy/`, `/contribute/`.
 - Portuguese pages: `/pt/` and the same six subpages under `/pt/`.
 - Styles: `assets/landing/site.css`, based on Meridian Aurora dusk/dawn colours.
 - Behaviour: `assets/landing/site.js` (mobile navigation, illustrated interface toggles, FAQ search, GitHub release asset lookup).
 - Custom domain: `CNAME` contains `transito.britx.studio`.
-- `.nojekyll` disables Jekyll, which previously tried to traverse archived Xcode files and failed on broken symlinks.
-- `website-ci.yml` validates bilingual routes and relative links. GitHub's existing Pages build/deployment workflow handles publishing from the branch.
+- `.nojekyll` is included in the published site; the deployment workflow avoids archived Xcode files entirely.
+- `website-ci.yml` validates bilingual routes and relative links. `pages.yml` isolates website files and uploads them as a GitHub Pages artifact.
 
 ## DNS and Pages
 
-In the DNS zone for `britx.studio`, add a **CNAME** record with **Host** `transito` and **Target** `pedrobritx.github.io`. Avoid conflicting A/AAAA records for that same subdomain. In GitHub repository **Settings → Pages**, confirm source is **Deploy from a branch**, branch **main**, folder **/(root)**, and custom domain `transito.britx.studio`. Enable **Enforce HTTPS** when GitHub provisions the certificate. Do not change macOS CI workflow.
+In the DNS zone for `britx.studio`, add a **CNAME** record with **Host** `transito` and **Target** `pedrobritx.github.io`. Avoid conflicting A/AAAA records for that same subdomain. The new deploy workflow attempts to set **Settings → Pages → Source → GitHub Actions** and the custom domain `transito.britx.studio` through the GitHub API. If the workflow warns that the token lacks permissions, set those two options in **Settings → Pages** manually. Enable **Enforce HTTPS** once GitHub provisions the certificate. The macOS CI workflow is unchanged.
 
 ## Download button
 
