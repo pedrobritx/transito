@@ -1,0 +1,81 @@
+name: Website validation
+
+on:
+  push:
+    paths:
+      - 'index.html'
+      - 'features/**'
+      - 'guide/**'
+      - 'support/**'
+      - 'updates/**'
+      - 'privacy/**'
+      - 'contribute/**'
+      - 'pt/**'
+      - 'assets/landing/**'
+      - 'CNAME'
+      - '.nojekyll'
+      - 'robots.txt'
+      - 'sitemap.xml'
+      - '.github/workflows/website-ci.yml'
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'features/**'
+      - 'guide/**'
+      - 'support/**'
+      - 'updates/**'
+      - 'privacy/**'
+      - 'contribute/**'
+      - 'pt/**'
+      - 'assets/landing/**'
+      - 'CNAME'
+      - '.nojekyll'
+      - 'robots.txt'
+      - 'sitemap.xml'
+      - '.github/workflows/website-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate pages and local links
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlsplit, unquote
+          root = Path.cwd()
+          pages = [root / "index.html"] + sorted(p for p in root.glob("**/index.html") if not any(x in p.parts for x in (".git", "packages", "tests", ".idea")))
+          assert len(pages) == 14, f"Expected 14 localized pages, got {len(pages)}"
+          class Checker(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.links = []
+              def handle_starttag(self, tag, attrs):
+                  d = dict(attrs)
+                  for key in ("href", "src"):
+                      if key in d: self.links.append(d[key])
+          errors = []
+          for page in pages:
+              html = page.read_text(encoding="utf-8")
+              checker = Checker()
+              checker.feed(html)
+              assert '<html lang="' in html, str(page)
+              assert 'hreflang="pt-BR"' in html and 'hreflang="en"' in html, str(page)
+              for href in checker.links:
+                  if not href or href.startswith(("#", "mailto:", "tel:", "data:")): continue
+                  parsed = urlsplit(href)
+                  if parsed.scheme or parsed.netloc: continue
+                  dest = (page.parent / unquote(parsed.path)).resolve()
+                  if dest.is_dir(): dest = dest / "index.html"
+                  if not dest.is_file(): errors.append(f"{page.relative_to(root)}: {href}")
+          assert not errors, "Broken links:\n" + "\n".join(errors)
+          assert (root / "CNAME").read_text().strip() == "transito.britx.studio"
+          assert (root / ".nojekyll").exists()
+          print(f"Validated {len(pages)} HTML pages and local links.")
+          PY
